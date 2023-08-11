@@ -1,5 +1,5 @@
 ﻿using ChessLib.Shared;
 
-Board board = new Board();
+ChessBoard board = new ChessBoard();
 
-board.PrintBoard();
+board.DrawBoard();
