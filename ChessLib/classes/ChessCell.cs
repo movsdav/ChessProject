@@ -3,28 +3,33 @@ namespace ChessLib.Shared;
 public class ChessCell
 {
     private readonly Color color;
-    private readonly string placeholder = "   ";
-    private ChessFigure? figure;
+    private string placeholder = "   ";
+    public ChessFigure? Figure { get; set; }
 
-    public string XCoordinate { get; init; }
-    public string YCoordinate { get; init; }
+    public int XCoordinate { get; init; }
+    public int YCoordinate { get; init; }
 
-    public ChessCell(Color color, (string, string) coods)
+    public ChessCell(Color color, (int, int) cords)
     {
-        (XCoordinate, YCoordinate) = coods;
+        XCoordinate = cords.Item1;
+        YCoordinate = 7 - cords.Item2;
         this.color = color;
     }
 
-    public ChessCell(Color color, (string, string) coods, ChessFigure figure) : this(color, coods)
+    public ChessCell(Color color, (int, int) coods, ChessFigure figure) : this(color, coods)
     {
-        this.figure = figure;
-        this.placeholder = $" {this.figure} " ?? "   ";
+        Figure = figure;
     }
 
     public void DrawCell()
     {
-        Console.BackgroundColor = this.color == Color.Black ? ConsoleColor.DarkCyan : ConsoleColor.DarkGray;
-        Console.ForegroundColor = ConsoleColor.Green;
+        if (Figure is not null)
+        {
+            placeholder = $" {Figure} ";
+            Console.ForegroundColor = Figure.Color == Color.Black ? ConsoleColor.Black : ConsoleColor.White;
+        }
+        Console.BackgroundColor = color == Color.Black ? ConsoleColor.Blue : ConsoleColor.DarkGray;
+
         Console.Write(placeholder);
         Console.ResetColor();
 

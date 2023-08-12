@@ -2,6 +2,9 @@ namespace ChessLib.Shared;
 
 public class ChessBoard
 {
+    public static string[] xCords = { "8", "7", "6", "5", "4", "3", "2", "1" };
+    public static string[] yCords = { "A", "B", "C", "D", "E", "F", "G", "H" };
+
     private readonly ChessCell[,] board;
 
     public ChessBoard()
@@ -18,11 +21,11 @@ public class ChessBoard
             {
                 if ((x + y) % 2 == 0)
                 {
-                    result[x, y] = new ChessCell(Color.Black, ($"{x+1}", $"{y+1}"), new Pawn(Color.White));
+                    result[x, y] = new ChessCell(Color.Black, (x + 1, y + 1));
                 }
                 else
                 {
-                    result[x, y] = new ChessCell(Color.White, ($"{x+1}", $"{y+1}"));
+                    result[x, y] = new ChessCell(Color.White, (x + 1, y + 1));
                 }
             }
         }
@@ -30,14 +33,26 @@ public class ChessBoard
         return result;
     }
 
+    public void AddFigureToBoard(ChessFigure figure)
+    {
+        int figureX = figure.XCoordinate;
+        int figureY = figure.YCoordinate;
+
+        for (int x = 0; x < 8; x++)
+        {
+            for (int y = 0; y < 8; y++)
+            {
+                if (x == figureX && y == figureY)
+                {
+                    board[x, y].Figure = figure;
+                }
+            }
+        }
+    }
+
     public void DrawBoard()
     {
         ChessCell square;
-
-        string[] xCords = { "8", "7", "6", "5", "4", "3", "2", "1" };
-        string[] yCords = { "A", "B", "C", "D", "E", "F", "G", "H" };
-
-
 
         for (int y = 0; y < 9; y++)
         {

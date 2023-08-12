@@ -1,8 +1,8 @@
 namespace ChessLib.Shared;
 
-class Pawn : ChessFigure
+public class Pawn : ChessFigure
 {
-    public Pawn(Color color) : base(color)
+    public Pawn(Color color,(int,int) coords) : base(color, coords)
     {
 
     }
