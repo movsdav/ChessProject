@@ -6,17 +6,15 @@ public class ChessCell
     private string placeholder = "   ";
     public ChessFigure? Figure { get; set; }
 
-    public int XCoordinate { get; init; }
-    public int YCoordinate { get; init; }
+    public Coordinate Coordinate { get; init; }
 
-    public ChessCell(Color color, (int, int) cords)
+    public ChessCell(Color color, Coordinate coordinate)
     {
-        XCoordinate = cords.Item1;
-        YCoordinate = 7 - cords.Item2;
+        Coordinate = coordinate;
         this.color = color;
     }
 
-    public ChessCell(Color color, (int, int) coods, ChessFigure figure) : this(color, coods)
+    public ChessCell(Color color, Coordinate coordinate, ChessFigure figure) : this(color, coordinate)
     {
         Figure = figure;
     }

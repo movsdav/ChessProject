@@ -2,7 +2,7 @@ namespace ChessLib.Shared;
 
 public class Rock : ChessFigure
 {
-    public Rock(Color color,(int,int) coords) : base(color,coords)
+    public Rock(Color color,Coordinate coordinates) : base(color,coordinates)
     {
 
     }

@@ -2,7 +2,7 @@ namespace ChessLib.Shared;
 
 public class King : ChessFigure
 {
-    public King(Color color, (int,int) coords) : base(color,coords)
+    public King(Color color, Coordinate coordinates) : base(color,coordinates)
     {
 
     }
