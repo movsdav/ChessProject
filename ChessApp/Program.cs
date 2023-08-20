@@ -2,33 +2,21 @@
 
 RunProgramm();
 
-int GetXCoordinate()
+Coordinate GetCoordinates()
 {
-    int xCoord;
     while (true)
     {
-        Console.WriteLine("Enter new figure X position(A-H): ");
+        Console.Write("Enter coordinates: ");
+        string? answer = Console.ReadLine();
 
-        xCoord = Array.IndexOf(ChessBoard.yCords, Console.ReadLine());
-
-        if (xCoord != -1) return xCoord;
-        else Console.WriteLine("Invalid coordinate. Try again.");
-    }
-}
-
-int GetYCoordinate()
-{
-    int yCoord;
-    while (true)
-    {
-        Console.WriteLine("Enter new figure Y position(1-8): ");
-
-        if (int.TryParse(Console.ReadLine(), out yCoord) && yCoord > 0 && yCoord < 9)
+        if (answer is not null && Coordinate.IsValidCoordinate(answer.ToUpper()))
         {
-            yCoord--;
-            return yCoord;
+            return new Coordinate(answer.ToUpper());
         }
-        else Console.WriteLine("Invalid coordinate. Try again.");
+        else
+        {
+            Console.WriteLine("Please enter valid coordinates");
+        }
     }
 }
 
@@ -36,7 +24,7 @@ Color GetColor()
 {
     while (true)
     {
-        Console.WriteLine("Enter new figure color: ");
+        Console.Write("Enter new figure color(White/Black): ");
 
         string? color = Console.ReadLine();
 
@@ -46,28 +34,28 @@ Color GetColor()
     }
 }
 
-ChessFigure GetChessFigure(Color figureColor, (int, int) coords)
+ChessFigure GetChessFigure(Color figureColor, Coordinate coordinate)
 {
     while (true)
     {
-        Console.WriteLine("Enter figure type: ");
+        Console.Write("Enter figure type(King/Queen/Rock/Knight/Bishop/Pawn): ");
 
         string? figureType = Console.ReadLine();
 
         switch (figureType)
         {
             case "Pawn":
-                return new Pawn(figureColor, coords);
+                return new Pawn(figureColor, coordinate);
             case "Knight":
-                return new Knight(figureColor, coords);
+                return new Knight(figureColor, coordinate);
             case "Bishop":
-                return new Bishop(figureColor, coords);
+                return new Bishop(figureColor, coordinate);
             case "Rock":
-                return new Rock(figureColor, coords);
+                return new Rock(figureColor, coordinate);
             case "Queen":
-                return new Queen(figureColor, coords);
+                return new Queen(figureColor, coordinate);
             case "King":
-                return new King(figureColor, coords);
+                return new King(figureColor, coordinate);
             default:
                 Console.WriteLine("Invalid figure type. Try again. ");
                 break;
@@ -83,16 +71,15 @@ void RunProgramm()
 
     while (true)
     {
-        Console.WriteLine("Do you want add new figure?(Yes/No - exit programm)");
+        Console.Write("Do you want add new figure?(Yes/No - exit programm): ");
         string? answer = Console.ReadLine();
 
         if (answer == "No") break;
         else if (answer == "Yes")
         {
-            int xCoord = GetXCoordinate();
-            int yCoord = GetYCoordinate();
+            Coordinate coordinate = GetCoordinates();
             Color color = GetColor();
-            ChessFigure? figure = GetChessFigure(color, (xCoord, yCoord));
+            ChessFigure? figure = GetChessFigure(color, coordinate);
 
             board.AddFigureToBoard(figure);
             board.DrawBoard();

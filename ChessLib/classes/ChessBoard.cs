@@ -2,30 +2,27 @@ namespace ChessLib.Shared;
 
 public class ChessBoard
 {
-    public static string[] xCords = { "8", "7", "6", "5", "4", "3", "2", "1" };
-    public static string[] yCords = { "A", "B", "C", "D", "E", "F", "G", "H" };
-
     private readonly ChessCell[,] board;
 
     public ChessBoard()
     {
-        this.board = GenerateBoard();
+        board = GenerateBoard();
     }
 
     private ChessCell[,] GenerateBoard()
     {
         ChessCell[,] result = new ChessCell[8, 8];
-        for (int x = 0; x < 8; x++)
+        for (byte x = 0; x < 8; x++)
         {
-            for (int y = 0; y < 8; y++)
+            for (byte y = 0; y < 8; y++)
             {
                 if ((x + y) % 2 == 0)
                 {
-                    result[x, y] = new ChessCell(Color.Black, (x + 1, y + 1));
+                    result[x, y] = new ChessCell(Color.Black, new Coordinate(Coordinate.xCords[x], Coordinate.yCords[y]));
                 }
                 else
                 {
-                    result[x, y] = new ChessCell(Color.White, (x + 1, y + 1));
+                    result[x, y] = new ChessCell(Color.White, new Coordinate(Coordinate.xCords[x], Coordinate.yCords[y]));
                 }
             }
         }
@@ -35,17 +32,15 @@ public class ChessBoard
 
     public void AddFigureToBoard(ChessFigure figure)
     {
-        int figureX = figure.XCoordinate;
-        int figureY = figure.YCoordinate;
+        byte figureY = figure.Coordinate.Y;
+        char figureX = figure.Coordinate.X;
 
-        for (int x = 0; x < 8; x++)
+
+        foreach (ChessCell cell in board)
         {
-            for (int y = 0; y < 8; y++)
+            if (cell.Coordinate.X == figureX && cell.Coordinate.Y == figureY)
             {
-                if (x == figureX && y == figureY)
-                {
-                    board[x, y].Figure = figure;
-                }
+                cell.Figure = figure;
             }
         }
     }
@@ -66,11 +61,11 @@ public class ChessBoard
 
                 if (x == 0)
                 {
-                    Console.Write($"{xCords[y]} ");
+                    Console.Write($"{Coordinate.yCords[y]} ");
                 }
                 else if (y == 8)
                 {
-                    Console.Write($"  {yCords[x - 1]}");
+                    Console.Write($"  {Coordinate.xCords[x - 1]}");
                 }
                 else
                 {
