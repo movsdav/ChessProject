@@ -10,4 +10,6 @@ public abstract class ChessFigure
         Color = color;
         Coordinate = coordinates;
     }
+
+    public abstract Coordinate[] GetPossibleMovesCoordinate();
 }

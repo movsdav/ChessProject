@@ -74,8 +74,6 @@ public class ChessBoard
                 }
             }
             Console.WriteLine();
-
-
         }
         Console.WriteLine();
     }
