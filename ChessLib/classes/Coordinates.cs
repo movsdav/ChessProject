@@ -27,4 +27,9 @@ public struct Coordinate
         Y = Convert.ToByte(row[1].ToString());
         X = row[0];
     }
+
+    public override string ToString()
+    {
+        return $"{X}{Y}";
+    }
 }

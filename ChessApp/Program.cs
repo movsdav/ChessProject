@@ -34,7 +34,7 @@ Color GetColor()
     }
 }
 
-ChessFigure GetChessFigure(Color figureColor, Coordinate coordinate)
+string GetChessFigureType()
 {
     while (true)
     {
@@ -45,21 +45,38 @@ ChessFigure GetChessFigure(Color figureColor, Coordinate coordinate)
         switch (figureType)
         {
             case "Pawn":
-                return new Pawn(figureColor, coordinate);
             case "Knight":
-                return new Knight(figureColor, coordinate);
             case "Bishop":
-                return new Bishop(figureColor, coordinate);
             case "Rock":
-                return new Rock(figureColor, coordinate);
             case "Queen":
-                return new Queen(figureColor, coordinate);
             case "King":
-                return new King(figureColor, coordinate);
+                return figureType;
             default:
                 Console.WriteLine("Invalid figure type. Try again. ");
                 break;
         }
+
+    }
+}
+
+ChessFigure? CreateChessFigure(string figureType, Color figureColor, Coordinate coordinate, ChessBoard board)
+{
+    switch (figureType)
+    {
+        case "Pawn":
+            return new Pawn(figureColor, coordinate, board);
+        case "Knight":
+            return new Knight(figureColor, coordinate, board);
+        case "Bishop":
+            return new Bishop(figureColor, coordinate, board);
+        case "Rock":
+            return new Rock(figureColor, coordinate, board);
+        case "Queen":
+            return new Queen(figureColor, coordinate, board);
+        case "King":
+            return new King(figureColor, coordinate, board);
+        default:
+            return null;
     }
 }
 
@@ -79,9 +96,9 @@ void RunProgramm()
         {
             Coordinate coordinate = GetCoordinates();
             Color color = GetColor();
-            ChessFigure? figure = GetChessFigure(color, coordinate);
+            ChessFigure? figure = CreateChessFigure(GetChessFigureType(), color, coordinate, board);
 
-            board.AddFigureToBoard(figure);
+            board.AddFigureToBoard(figure!);
             board.DrawBoard();
         }
         else Console.WriteLine("Invalid answer. Try again");

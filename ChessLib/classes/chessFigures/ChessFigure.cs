@@ -5,11 +5,14 @@ public abstract class ChessFigure
     public Color Color { get; init; }
     public Coordinate Coordinate { get; set; }
 
-    public ChessFigure(Color color, Coordinate coordinates)
+    protected readonly ChessBoard board;
+
+    public ChessFigure(Color color, Coordinate coordinate, ChessBoard board)
     {
         Color = color;
-        Coordinate = coordinates;
+        Coordinate = coordinate;
+        this.board = board;
     }
 
-    public abstract Coordinate[] GetPossibleMovesCoordinate();
+    public abstract Coordinate[] GetPossibleMovesCoordinates();
 }

@@ -4,6 +4,14 @@ public class ChessBoard
 {
     private readonly ChessCell[,] board;
 
+    public ChessCell[,] Board
+    {
+        get
+        {
+            return board;
+        }
+    }
+
     public ChessBoard()
     {
         board = GenerateBoard();
