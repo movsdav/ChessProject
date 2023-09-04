@@ -8,6 +8,9 @@ public class ChessCell
 
     public Coordinate Coordinate { get; init; }
 
+    // Special property for Knight problem
+    public int numberToReach = 0;
+
     public ChessCell(Color color, Coordinate coordinate)
     {
         Coordinate = coordinate;

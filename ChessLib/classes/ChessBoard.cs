@@ -51,6 +51,31 @@ public class ChessBoard
                 cell.Figure = figure;
             }
         }
+
+        //Coordinate[] possibleMoves = figure.GetPossibleMovesCoordinates();
+        //foreach (var cell in possibleMoves)
+        //{
+        //    Console.WriteLine(cell);
+        //}
+
+        Knight? knight = figure as Knight;
+        if (knight != null) Console.WriteLine(knight.GetMinimalRequiredMoves(new Coordinate("H1")));
+    }
+
+    public ChessCell this[Coordinate coordinate]
+    {
+        get
+        {
+            foreach(ChessCell cell in board)
+            {
+                if(cell.Coordinate.X == coordinate.X && cell.Coordinate.Y == coordinate.Y)
+                {
+                    return cell;
+                }
+            }
+
+            throw new Exception("Invalid coordinate");
+        }
     }
 
     public void DrawBoard()
